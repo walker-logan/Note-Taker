@@ -29,6 +29,7 @@ app.post("/api/notes", (req, res) => {
       text: req.body.text,
       id: uniqid(),
     };
+    console.log("New note created->", newNote);
     notes.push(newNote);
     fs.writeFile(DB_PATH, JSON.stringify(notes), (err) => {
       if (err) {
