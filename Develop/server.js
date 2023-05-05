@@ -16,30 +16,33 @@ app.get("/notes", (req, res) =>
   res.sendFile(path.join(__dirname, "public/notes.html"))
 );
 
-
 // reads the db.json file
 app.get("/api/notes", function (req, res) {
   fs.readFile("./db/db.json", (err, data) => res.send(data));
 });
 
 app.post("/api/notes", (req, res) => {
-  fs.readFile("./db/db.json", (err, data) => {
-    let notes = JSON.parse(data)
+  fs.readFile("./db/db.json", "utf8", (err, data) => {
+    let notes = JSON.parse(data);
     const newNote = {
       title: req.body.title,
       text: req.body.text,
       id: uniqid(),
     };
     notes.push(newNote);
-    fs.writeFile("./db/db.json", JSON.stringify(notes), err => {
-    if (err) {
-      console.log("error");
-    }
-    res.json(newNote);})
-  })
+    fs.writeFile("./db/db.json", "utf8", JSON.stringify(notes), (err) => {
+      if (err) {
+        console.log("error");
+      }
+      res.json(newNote);
+    });
+  });
+});
 
-})
-
+// delete data
+app.delete("/api/notes/:id", (req, res) => {
+  const notes = JSON.parse(fs.readFileSynce("./db/db.json", "utf8"));
+});
 
 app.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "public/index.html"))
@@ -48,5 +51,3 @@ app.get("*", (req, res) =>
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
 );
-
-
