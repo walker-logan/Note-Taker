@@ -2,9 +2,8 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const uniqid = require("uniqid");
-const PORT = process.env.PORT || 3001;
-
 const app = express();
+const PORT = process.env.PORT || 3001;
 
 // middleware
 app.use(express.json());
@@ -21,24 +20,39 @@ app.get("/api/notes", function (req, res) {
   fs.readFile("./db/db.json", (err, data) => res.send(data));
 });
 
-app.post("/api/notes", (req, res) => {
+// function to read notes from the json file
+const readNotes = (callback) => {
   fs.readFile("./db/db.json", "utf8", (err, data) => {
-    let notes = JSON.parse(data);
+    if (err) throw err;
+    const notes = JSON.parse(data);
+    callback(notes);
+  });
+};
+
+// function to write notes to the json file
+const writeNotes = (notes, callback) => {
+  fs.writeFile("./db/db.json", JSON.stringify(notes), (err) => {
+    if (err) throw err;
+    callback();
+  });
+};
+
+// route to create a new note and save it to the json file
+app.post("/api/notes", (req, res) => {
+  readNotes((notes) => {
     const newNote = {
       title: req.body.title,
       text: req.body.text,
       id: uniqid(),
     };
     notes.push(newNote);
-    fs.writeFile("./db/db.json", JSON.stringify(notes), (err) => {
-      if (err) {
-        console.log("error");
-      }
+    writeNotes(notes, () => {
       res.json(newNote);
     });
   });
 });
 
+// route to serve the index.html file for all other routes
 app.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "public/index.html"))
 );
