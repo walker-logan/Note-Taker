@@ -30,7 +30,7 @@ app.post("/api/notes", (req, res) => {
       id: uniqid(),
     };
     notes.push(newNote);
-    fs.writeFile("./db/db.json", "utf8", JSON.stringify(notes), (err) => {
+    fs.writeFile("./db/db.json", JSON.stringify(notes), (err) => {
       if (err) {
         console.log("error");
       }
@@ -39,14 +39,23 @@ app.post("/api/notes", (req, res) => {
   });
 });
 
-// delete data
-app.delete("/api/notes/:id", (req, res) => {
-  const notes = JSON.parse(fs.readFileSynce("./db/db.json", "utf8"));
-});
-
 app.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "public/index.html"))
 );
+
+// delete data
+app.delete("/api/notes/:id", (req, res) => {
+  const noteId = req.params.id;
+  fs.readFile("./db/db.json", "utf8", (err, data) => {
+    if (err) throw err;
+    const notes = JSON.parse(data);
+    const updatedNotes = notes.filter((note) => note.id != noteId);
+    fs.writeFile("./db/db.json", JSON.stringify(updatedNotes), (err) => {
+      if (err) throw err;
+      res.json(updatedNotes);
+    });
+  });
+});
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)

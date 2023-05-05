@@ -182,10 +182,4 @@ if (window.location.pathname === '/notes') {
 
 getAndRenderNotes();
 
-// basic express server
-// we are going to have four routes
-// html routes will return index.html and notes
 
-// * route will go last
-// fs package
-// read file/ write file
