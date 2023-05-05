@@ -34,9 +34,9 @@ Check out the demo [here](https://drive.google.com/file/d/1PDutySSqJxJKxHQAGimmc
 2. Open the project in Visual Studio Code. If you don't have it installed, download and install it.
 3. Ensure that you have Node.js v16.20 installed. If you need to install Node.js, check out this [link](https://nodejs.org/en/download) for more information.
 4. Initialize and create a package.json file using the command npm init -y.
-5. Install the dependencies by running the command npm i in the terminal. If you encounter any errors, install express and uniqid directly from the command line using npm i express and npm i uniqid.
+5. Install the dependencies by running the command npm i in the terminal.
 6. Start the server by running the command npm start or node server.js in the terminal.
-7. Access the front-end of the application in your browser to observe full functionality of the site.
+7. Access the application in your browser to observe full functionality of the site.
 
 ## Usage
 
