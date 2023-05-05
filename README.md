@@ -30,7 +30,7 @@ Check out the demo [here](https://drive.google.com/file/d/1PDutySSqJxJKxHQAGimmc
 
 ## Installation
 
-1. Clone the repository using the command: git clone https://github.com/walker-logan/Note-Taker.git
+1. Clone the repository using the command: git clone <SSH-KEY>
 2. Open the project in Visual Studio Code. If you don't have it installed, download and install it.
 3. Ensure that you have Node.js v16.20 installed. If you need to install Node.js, check out this [link](https://nodejs.org/en/download) for more information.
 4. Initialize and create a package.json file using the command npm init -y.
