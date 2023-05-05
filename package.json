@@ -4,12 +4,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd client && npm run build",
-      "install": "cd client && npm install",
-      "start": "node server",
-      "server": "nodemon server",
-      "client": "npm start --prefix client",
-      "dev": "concurrently \"npm run server\" \"npm run client\""
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +13,13 @@
     "uniqid": "^5.4.0"
   },
   "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walker-logan/Note-Taker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/walker-logan/Note-Taker/issues"
+  },
+  "homepage": "https://github.com/walker-logan/Note-Taker#readme",
   "description": ""
 }
